@@ -1,0 +1,79 @@
+<template>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand">{{ routeName }}</a>
+      <button type="button"
+              class="navbar-toggler navbar-toggler-right"
+              :class="{toggled: $sidebar.showSidebar}"
+              aria-controls="navigation-index"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+              @click="toggleSidebar">
+        <span class="navbar-toggler-bar burger-lines"></span>
+        <span class="navbar-toggler-bar burger-lines"></span>
+        <span class="navbar-toggler-bar burger-lines"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end">
+        <ul class="nav navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#" @click.prevent="logOut">
+              Log out
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</template>
+
+<script>
+// import BaseDropdown from './BaseDropdown.vue'
+
+export default {
+  components: {
+    // BaseDropdown
+  },
+  computed: {
+    routeName () {
+      const {name} = this.$route
+      return this.capitalizeFirstLetter(name)
+    }
+  },
+  data () {
+    return {
+      activeNotifications: false
+    }
+  },
+  methods: {
+    capitalizeFirstLetter (string) {
+      return string.charAt(0).toUpperCase() + string.slice(1)
+    },
+    toggleNotificationDropDown () {
+      this.activeNotifications = !this.activeNotifications
+    },
+    closeDropDown () {
+      this.activeNotifications = false
+    },
+    toggleSidebar () {
+      console.log('TopNavbar -> toggleSidebar')
+      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
+    },
+    hideSidebar () {
+      console.log('TopNavbar -> hideSidebar')
+      this.$sidebar.displaySidebar(false)
+    },
+    logOut: async function () {
+      try {
+        await this.$store.dispatch('logout')
+        this.$router.push('/')
+      } catch (err) {
+        this.$store.commit('auth_error')
+      }
+    }
+  }
+}
+
+</script>
+
+<style>
+</style>

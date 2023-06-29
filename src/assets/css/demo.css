@@ -4497,6 +4497,16 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
         left: 12px
     }
 
+    .cnt {
+        width: 94vw;
+        height: 92vh;
+        /* position: absolute; */
+      }
+
+    .ymap-container {
+        height: 100%;
+    }
+
     .navbar-nav .nav-item .dropdown-menu:after {
         border-bottom: 11px solid #fff;
         top: -10px
@@ -5164,6 +5174,16 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
 @media(max-width: 768px) {
     .main-panel .navbar.navbar-fixed {
         width:100%!important
+    }
+
+    .cnt {
+        width: 100vw;
+        height: 92vh;
+        /* position: absolute; */
+      }
+
+    .ymap-container {
+        height: 100%;
     }
 
     .main-panel .typo-line {
@@ -9903,12 +9923,12 @@ a.fc-more:hover {
     color: #aaa;
     font-size: 13px
 }
-
+/* 
 #map {
     position: relative;
     width: 100%;
     height: calc(100% - 60px)
-}
+} */
 
 .places-buttons .btn {
     margin-bottom: 30px
