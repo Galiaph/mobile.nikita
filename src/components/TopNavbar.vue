@@ -62,7 +62,7 @@ export default {
       console.log('TopNavbar -> hideSidebar')
       this.$sidebar.displaySidebar(false)
     },
-    logOut: async function () {
+    async logOut () {
       try {
         await this.$store.dispatch('logout')
         this.$router.push('/')

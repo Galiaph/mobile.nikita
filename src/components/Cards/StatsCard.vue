@@ -16,7 +16,6 @@
     </template>
     <template #footer>
       <div class="stats">
-        <hr/>
        <slot name="footer"></slot>
       </div>
     </template>

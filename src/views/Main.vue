@@ -5,10 +5,6 @@
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Dashboard</p>
       </sidebar-link>
-      <sidebar-link to="/view/profile">
-        <i class="nc-icon nc-circle-09"></i>
-        <p>Profile</p>
-      </sidebar-link>
       <sidebar-link to="/view/map">
         <i class="nc-icon nc-pin-3"></i>
         <p>Map</p>
@@ -46,8 +42,8 @@ export default {
       }
     }
   },
-    mounted: async function () {
-    }
+  async mounted () {
+  }
 }
 </script>
 

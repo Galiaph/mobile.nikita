@@ -48,7 +48,7 @@ export default {
     password: ''
   }),
   methods: {
-    login: async function () {
+    async login () {
       const username = this.username
       const password = this.password
 
