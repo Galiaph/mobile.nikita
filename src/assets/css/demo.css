@@ -3170,8 +3170,14 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
     height: 27px;
     vertical-align: middle;
     outline: 0;
-    cursor: pointer
+    cursor: pointer;
+    padding: 0;
 }
+/* 
+.navbar .navbar-toggler:focus {
+    outline: none;
+    box-shadow: none;
+} */
 
 .navbar .navbar-toggler.navbar-toggler-left {
     position: relative;

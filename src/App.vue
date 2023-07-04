@@ -1,5 +1,7 @@
 <template>
-  <router-view/>
+  <div :class="{'nav-open': $sidebar.showSidebar}">
+    <router-view/>
+  </div>
 </template>
 
 <script>

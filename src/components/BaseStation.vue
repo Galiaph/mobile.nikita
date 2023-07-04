@@ -22,22 +22,18 @@ export default {
   },
   methods: {
     getColor: function (id, st) {
-      if (st == '0')
-          return 'red'
-
-      switch (id) {
-        case 1:
-          return 'blue'
-        case 2:
-          return 'pink'
-        case 3:
-          return 'yellow'
-        case 4:
+      if (st == 0)
           return 'green'
-        case 5:
-          return 'olive'
-        default:
-          return 'grey'
+      else {
+        switch (id) {
+          case 10:
+            return 'gray'
+          default:
+            if (st == 2)
+              return 'yellow'
+            else
+              return 'red'
+        }
       }
     }
   }

@@ -55,7 +55,6 @@ export default {
       this.activeNotifications = false
     },
     toggleSidebar () {
-      console.log('TopNavbar -> toggleSidebar')
       this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
     },
     hideSidebar () {

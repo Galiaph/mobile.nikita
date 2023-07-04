@@ -12,7 +12,12 @@
     </side-bar>
     <div class="main-panel">
       <top-navbar/>
-      <dashboard-content :baseStationsArr="baseStationsGroup" @clickButtonM="clickButtonM" />
+      <dashboard-content 
+        :baseStationsArr="baseStationsGroup"
+        @clickButtonM="clickButtonM($event)"
+        @clickButtonK="clickButtonK($event)"
+        @clickButtonP="clickButtonP($event)"
+        @click="toggleSidebar" />
     </div>
   </div>
 </template>
@@ -38,18 +43,36 @@ export default {
   methods: {
     toggleSidebar () {
       if (this.$sidebar.showSidebar) {
-        console.log('TopNavbar -> toggleSidebar')
+        console.log('DashboardLayout -> toggleSidebar')
         this.$sidebar.displaySidebar(false)
       }
     },
-    clickButtonM() {
-      this.getBaseStationById(1)
+    clickButtonM(event) {
+      if (event) {
+        this.getBaseStationById(1)
+      } else {
+        this.delBaseStationById(1)
+      }
+    },
+    clickButtonK(event) {
+      if (event) {
+        this.getBaseStationById(2)
+      } else {
+        this.delBaseStationById(2)
+      }
+    },
+    clickButtonP(event) {
+      if (event) {
+        this.getBaseStationById(3)
+      } else {
+        this.delBaseStationById(3)
+      }
     },
     async getBaseStationById (id) {
         const resp = await axios.get(`http://151.0.10.245:5001/bs/${id}`)
         this.baseStationsGroup = this.baseStationsGroup.concat(resp.data.filter(item => {
           item.show = true
-          if (item.bs_status == 1) {
+          if (item.station == null) {
             item.bs_comment += '\nstandart: '
             if (item.bs_2g)
               item.bs_comment += '2G '
@@ -61,9 +84,11 @@ export default {
           return this.baseStationsGroup['bs_name'] === item.bs_name ? false : true
         }))
       },
+      delBaseStationById (id) {
+        this.baseStationsGroup = this.baseStationsGroup.filter(item => item.bs_operator != id)
+      }
   },
   async mounted () {
-    this.getBaseStationById(1)
   }
 }
 </script>

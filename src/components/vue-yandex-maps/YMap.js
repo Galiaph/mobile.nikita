@@ -99,11 +99,11 @@ export default {
       },
     },
     detailedControls: {
-      type: Object,
-      validator(val) {
-        const controls = Object.keys(val);
-        return utils.controlsTypeValidator(controls);
-      },
+      type: Object
+      // validator(val) {
+      //   const controls = Object.keys(val);
+      //   return utils.controlsTypeValidator(controls);
+      // },
     },
     scrollZoom: {
       type: Boolean,
@@ -198,10 +198,24 @@ export default {
       if (this.detailedControls) {
         const controls = Object.keys(this.detailedControls);
         controls.forEach((controlName) => {
-          this.myMap.controls.remove(controlName);
-          this.myMap.controls.add(controlName, this.detailedControls[controlName]);
+          const btn = new ymaps.control.Button({ data: { content: controlName, image: this.detailedControls[controlName]['image'] } })
+          this.myMap.controls.add(btn, this.detailedControls[controlName]['options'])
+
+          if (this.detailedControls[controlName]['events']) {
+            const events = Object.keys(this.detailedControls[controlName]['events'])
+            events.forEach((eventName) => {
+              btn.events.add(eventName, this.detailedControls[controlName]['events'][eventName])
+            })
+          }
         });
       }
+      // if (this.detailedControls) {
+      //   const controls = Object.keys(this.detailedControls);
+      //   controls.forEach((controlName) => {
+      //     this.myMap.controls.remove(controlName);
+      //     this.myMap.controls.add(controlName, this.detailedControls[controlName]);
+      //   });
+      // }
       if (this.scrollZoom === false) {
         this.myMap.behaviors.disable('scrollZoom');
       }

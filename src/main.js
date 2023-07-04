@@ -75,11 +75,13 @@ axios.interceptors.request.use(authInterceptor)
 axios.interceptors.response.use(undefined, errorInterceptor)
 
 const app = createApp(App)
-app.config.globalProperties.$sidebar = SideBar
+//app.config.globalProperties.$sidebar = SideBar
+// app.provide('sidebar', SideBar)
 //app.directive('click-outside', clickOutside)
 
 app.use(store)
 app.use(router)
+app.use(SideBar)
 app.use(HighchartsVue)
 app.use(ymapPlugin, settings)
 app.component("font-awesome-icon", FontAwesomeIcon)

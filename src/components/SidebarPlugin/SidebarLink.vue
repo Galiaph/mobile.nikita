@@ -33,13 +33,11 @@
       }
     },
     methods: {
-      // <component :is="tag"
-      //        @click="hideSidebar"
-      // hideSidebar () {
-      //   if (this.autoClose && this.$sidebar && this.$sidebar.showSidebar === true) {
-      //     this.$sidebar.displaySidebar(false)
-      //   }
-      // }
+      hideSidebar () {
+        if (this.autoClose && this.$sidebar && this.$sidebar.showSidebar === true) {
+          this.$sidebar.displaySidebar(false)
+        }
+      }
     }
   }
 </script>

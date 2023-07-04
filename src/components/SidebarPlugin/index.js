@@ -1,5 +1,4 @@
-// import Sidebar from './SideBar.vue'
-// import SidebarLink from './SidebarLink.vue'
+import { reactive } from "vue";
 
 const SidebarStore = {
   showSidebar: false,
@@ -15,25 +14,11 @@ const SidebarStore = {
   }
 }
 
-// const SidebarPlugin = {
+const SidebarPlugin = {
 
-//   install (Vue) {
-//     Vue.mixin({
-//       data () {
-//         return {
-//           sidebarStore: SidebarStore
-//         }
-//       }
-//     })
+  install (Vue) {
+    Vue.config.globalProperties.$sidebar = reactive(SidebarStore)
+  }
+}
 
-//     Object.defineProperty(Vue.prototype, '$sidebar', {
-//       get () {
-//         return this.$root.sidebarStore
-//       }
-//     })
-//     // Vue.component('side-bar', Sidebar)
-//     // Vue.component('sidebar-link', SidebarLink)
-//   }
-// }
-
-export default SidebarStore //SidebarPlugin
+export default  SidebarPlugin
