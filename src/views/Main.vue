@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <side-bar>
+    <side-bar title="САЛЬДОМЕТР">
       <sidebar-link to="/view/dashboard">
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Dashboard</p>
@@ -12,7 +12,7 @@
     </side-bar>
     <div class="main-panel">
       <top-navbar/>
-      <dashboard-content />
+      <dashboard-content :baseStationsArr="baseStationsGroup" @clickButtonM="clickButtonM" />
     </div>
   </div>
 </template>
@@ -22,10 +22,10 @@ import SideBar from '@/components/SidebarPlugin/SideBar.vue'
 import SidebarLink from '@/components/SidebarPlugin/SidebarLink.vue'
 import DashboardContent from '@/components/ContentItem.vue'
 import TopNavbar from '@/components/TopNavbar.vue'
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
-  name: 'App',
+  name: 'MainApp',
   components: {
     SideBar,
     SidebarLink,
@@ -33,6 +33,7 @@ export default {
     TopNavbar
   },
   data: () => ({
+    baseStationsGroup: []
   }),
   methods: {
     toggleSidebar () {
@@ -40,9 +41,29 @@ export default {
         console.log('TopNavbar -> toggleSidebar')
         this.$sidebar.displaySidebar(false)
       }
-    }
+    },
+    clickButtonM() {
+      this.getBaseStationById(1)
+    },
+    async getBaseStationById (id) {
+        const resp = await axios.get(`http://151.0.10.245:5001/bs/${id}`)
+        this.baseStationsGroup = this.baseStationsGroup.concat(resp.data.filter(item => {
+          item.show = true
+          if (item.bs_status == 1) {
+            item.bs_comment += '\nstandart: '
+            if (item.bs_2g)
+              item.bs_comment += '2G '
+            if (item.bs_3g)
+              item.bs_comment += '3G '
+            if (item.bs_4g)
+              item.bs_comment += '4G '
+          }
+          return this.baseStationsGroup['bs_name'] === item.bs_name ? false : true
+        }))
+      },
   },
   async mounted () {
+    this.getBaseStationById(1)
   }
 }
 </script>

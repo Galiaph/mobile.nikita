@@ -54,7 +54,6 @@ export default {
     return {
       useObjectManager: this.useObjectManager,
       addMarker: this.addMarker,
-      getMap: this.getMap,
       deleteMarker,
       compareValues,
       makeComponentBalloonTemplate,
@@ -65,7 +64,7 @@ export default {
       ymapId: `yandexMap${Math.round(Math.random() * 100000)}`,
       style: this.ymapClass ? '' : 'width: 100%; height: 100%;',
       isReady: false,
-      debounce: null
+      debounce: null,
     };
   },
   props: {
@@ -101,6 +100,10 @@ export default {
     },
     detailedControls: {
       type: Object,
+      validator(val) {
+        const controls = Object.keys(val);
+        return utils.controlsTypeValidator(controls);
+      },
     },
     scrollZoom: {
       type: Boolean,
@@ -162,9 +165,6 @@ export default {
     },
   },
   methods: {
-    getMap() {
-      return this.myMap
-    },
     init() {
       this.myMap = {};
       this.markers = [];
@@ -172,7 +172,8 @@ export default {
       // if ymap isn't initialized or have no markers;
       if (!window.ymaps
         || !ymaps.GeoObjectCollection
-        || (!this.initWithoutMarkers && !this.$slots.default() && !this.placemarks.length)
+        || (!this.initWithoutMarkers && !this.$slots.default?.() && !this.placemarks.length)
+        || (!document.getElementById(this.ymapId))
       ) return;
 
       this.$emit('map-initialization-started');
@@ -197,17 +198,8 @@ export default {
       if (this.detailedControls) {
         const controls = Object.keys(this.detailedControls);
         controls.forEach((controlName) => {
-          const btn = new ymaps.control.Button({ data: { content: controlName, image: this.detailedControls[controlName]['image'] } })
-          this.myMap.controls.add(btn, this.detailedControls[controlName]['options'])
-
-          if (this.detailedControls[controlName]['events']) {
-            const events = Object.keys(this.detailedControls[controlName]['events'])
-            events.forEach((eventName) => {
-              btn.events.add(eventName, this.detailedControls[controlName]['events'][eventName])
-            })
-          }
-        // //   this.myMap.controls.remove(controlName);
-        // //   this.myMap.controls.add(controlName, this.detailedControls[controlName]['options']);
+          this.myMap.controls.remove(controlName);
+          this.myMap.controls.add(controlName, this.detailedControls[controlName]);
         });
       }
       if (this.scrollZoom === false) {
@@ -313,7 +305,7 @@ export default {
         ),
         this.isReady && h(
           'div',
-          [this.$slots.default],
+          [this.$slots.default?.()],
         ),
       ],
     );
@@ -351,6 +343,6 @@ export default {
     }
   },
   beforeUnmount() {
-    if (this.myMap.geoObjects) this.myMap.geoObjects.removeAll();
+    if (this.myMap?.geoObjects) this.myMap.geoObjects.removeAll();
   },
 };
