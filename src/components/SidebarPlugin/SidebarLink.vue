@@ -1,5 +1,5 @@
 <template>
-  <li v-bind="$attrs" class="nav-item" @click="hideSidebar">
+  <li class="nav-item" @click="hideSidebar">
     <router-link class="nav-link" v-bind="$attrs">
       <slot>
         <i v-if="link.icon" :class="link.icon"></i>
@@ -26,10 +26,6 @@
             icon: ''
           }
         }
-      },
-      tag: {
-        type: String,
-        default: 'router-link'
       }
     },
     methods: {

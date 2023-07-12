@@ -2,7 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import store from '../store/index.js'
 import Main from '../views/Main.vue'
 import Map from '../Page/Map.vue'
-import Profile from '../Page/Profile.vue'
+import Building from '../Page/Building.vue'
+import Alarm from '../Page/Alarm.vue'
+import Faiberalarm from '../Page/Faiberalarm.vue'
 import Dashboard from '../Page/Dashboard.vue'
 
 const routes = [
@@ -28,9 +30,19 @@ const routes = [
         component: Dashboard
       },
       {
-        path: 'profile',
-        name: 'Profile',
-        component: Profile
+        path: 'building',
+        name: 'building',
+        component: Building
+      },
+      {
+        path: 'alarm',
+        name: 'alarm',
+        component: Alarm
+      },
+      {
+        path: 'faiberalarm',
+        name: 'faiberalarm',
+        component: Faiberalarm
       },
       {
         path: 'map',

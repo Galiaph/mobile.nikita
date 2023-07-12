@@ -3,7 +3,7 @@
     <yandex-map
       @map-was-initialized="handler"
       :coords="coords"
-      :zoom="zooms"
+      :zoom="zoom"
       :controls="[
         'geolocationControl',
         'rulerControl',
@@ -38,12 +38,12 @@ export default {
       baseStations
     },
     props: {
-      baseStationsArr: Object
+      baseStationsArr: Object,
+      coords: Array,
+      zoom: Number
     },
     data: () => ({
       myMap: null,
-      coords: [46.63, 32.62],
-      zooms: 12,
       statM: false
     }),
     computed: {

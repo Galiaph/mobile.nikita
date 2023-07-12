@@ -1,5 +1,5 @@
 {
-  "name": "mobile.nikita",
+  "name": "mobile",
   "version": "0.1.0",
   "private": true,
   "description": "Vue light bootstrap dashboard",
@@ -17,7 +17,6 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
-    "bootstrap-icons": "^1.10.5",
     "core-js": "^3.8.3",
     "highcharts-vue": "^1.4.2",
     "md5": "^2.3.0",
@@ -25,6 +24,7 @@
     "vue": "^3.2.13",
     "vue-router": "^4.2.2",
     "vue-yandex-maps": "^0.12.7",
+    "vue3-simple-alert": "^1.0.4",
     "vuex": "^4.1.0"
   },
   "devDependencies": {

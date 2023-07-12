@@ -1,23 +1,38 @@
 <template>
   <div class="wrapper">
     <side-bar title="САЛЬДОМЕТР">
+      <mobile-menu name="content"></mobile-menu>
       <sidebar-link to="/view/dashboard">
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Dashboard</p>
       </sidebar-link>
+      <sidebar-link to="/view/building">
+        <i class="nc-icon nc-settings-90"></i>
+        <p>Стройка</p>
+      </sidebar-link>
+      <sidebar-link to="/view/alarm">
+        <i class="nc-icon nc-preferences-circle-rotate"></i>
+        <p>АВР БС</p>
+      </sidebar-link>
+      <sidebar-link to="/view/faiberalarm">
+        <i class="nc-icon nc-vector"></i>
+        <p>Обрывы ВОЛС</p>
+      </sidebar-link>
       <sidebar-link to="/view/map">
         <i class="nc-icon nc-pin-3"></i>
-        <p>Map</p>
+        <p>Карта</p>
       </sidebar-link>
     </side-bar>
     <div class="main-panel">
-      <top-navbar/>
+      <top-navbar :baseStationsArr="baseStationsGroup" @searchBase="searchBase($event)" />
       <dashboard-content 
         :baseStationsArr="baseStationsGroup"
         @clickButtonM="clickButtonM($event)"
         @clickButtonK="clickButtonK($event)"
         @clickButtonP="clickButtonP($event)"
-        @click="toggleSidebar" />
+        @click="toggleSidebar"
+        :coords="coords"
+        :zoom="zoom" />
     </div>
   </div>
 </template>
@@ -26,6 +41,7 @@
 import SideBar from '@/components/SidebarPlugin/SideBar.vue'
 import SidebarLink from '@/components/SidebarPlugin/SidebarLink.vue'
 import DashboardContent from '@/components/ContentItem.vue'
+import MobileMenu from '@/components/MobileMenu.vue'
 import TopNavbar from '@/components/TopNavbar.vue'
 import axios from 'axios'
 
@@ -35,10 +51,13 @@ export default {
     SideBar,
     SidebarLink,
     DashboardContent,
-    TopNavbar
+    TopNavbar,
+    MobileMenu
   },
   data: () => ({
-    baseStationsGroup: []
+    baseStationsGroup: [],
+    coords: [46.63, 32.62],
+    zoom: 12
   }),
   methods: {
     toggleSidebar () {
@@ -86,7 +105,15 @@ export default {
       },
       delBaseStationById (id) {
         this.baseStationsGroup = this.baseStationsGroup.filter(item => item.bs_operator != id)
-      }
+      },
+      searchBase (event) {
+        const val = this.baseStationsGroup.filter(item => item.bs_name == event)[0]
+
+        if (val) {
+          this.coords = [val.bs_latitude, val.bs_longitude]
+          this.zoom = 17
+        }
+      },
   },
   async mounted () {
   }

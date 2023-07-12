@@ -1,8 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import HighchartsVue from 'highcharts-vue'
+import Highcharts from "highcharts"
+import drilldown from 'highcharts/modules/drilldown'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap'
+import  'bootstrap'
 import ymapPlugin from '@/components/vue-yandex-maps'
 import axios from 'axios'
 import router from './router'
@@ -16,6 +18,9 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VueSimpleAlert from 'vue3-simple-alert'
+
+drilldown(Highcharts)
 
 library.add(fas, far, fab)
 
@@ -84,5 +89,6 @@ app.use(router)
 app.use(SideBar)
 app.use(HighchartsVue)
 app.use(ymapPlugin, settings)
+app.use(VueSimpleAlert)
 app.component("font-awesome-icon", FontAwesomeIcon)
 app.mount('#app')

@@ -756,7 +756,13 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
     opacity: 1
 }
 
-.sidebar .nav .nav-item.active .nav-link {
+.sidebar .nav a.nav-item.active {
+    color: #fff;
+    opacity: 1;
+    background: hsla(0,0%,100%,.23)
+}
+
+.sidebar .nav .nav-item.active .nav-item {
     color: #fff;
     opacity: 1;
     background: hsla(0,0%,100%,.23)
@@ -2806,7 +2812,7 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
 
 .card .table tbody td:last-child,.card .table thead th:last-child {
     padding-right: 15px;
-    display: block
+    /* display: block */
 }
 
 .table-bigboy>thead>tr>th {
@@ -3451,7 +3457,7 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
     height: 22px;
     font-size: 16px;
     line-height: 1.5;
-    color: #e3e3e3
+    /* color: #e3e3e3 */
 }
 
 .el-date-picker .el-input .navbar-transparent .navbar-form .el-input__inner,.el-date-picker .el-input [class*=navbar-ct] .navbar-form .el-input__inner,.form-group .navbar-transparent .navbar-form .el-input__inner,.form-group [class*=navbar-ct] .navbar-form .el-input__inner,.navbar-transparent .navbar-form .el-date-picker .el-input .el-input__inner,.navbar-transparent .navbar-form .form-control,.navbar-transparent .navbar-form .form-group .el-input__inner,[class*=navbar-ct] .navbar-form .el-date-picker .el-input .el-input__inner,[class*=navbar-ct] .navbar-form .form-control,[class*=navbar-ct] .navbar-form .form-group .el-input__inner {
@@ -4657,7 +4663,7 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
     }
 
     .navbar-brand {
-        padding: 15px 0
+        
     }
 
     .navbar-transparent {
