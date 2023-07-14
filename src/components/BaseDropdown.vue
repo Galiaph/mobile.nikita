@@ -11,7 +11,6 @@
       <slot name="title">
         <i :class="icon"></i>
         <span class="no-icon">{{title}}</span>
-        <b class="caret"></b>
       </slot>
     </a>
     <div class="dropdown-menu show" v-show="isOpen">
@@ -33,12 +32,10 @@
     },
     methods: {
       toggleDropDown () {
-        console.log('toggleDropDown')
         this.isOpen = !this.isOpen
         this.$emit('change', this.isOpen)
       },
       closeDropDown () {
-        console.log('closeDropDown')
         this.isOpen = false
         this.$emit('change', this.isOpen)
       }

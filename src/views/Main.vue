@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <side-bar title="САЛЬДОМЕТР">
-      <mobile-menu name="content"></mobile-menu>
+      <mobile-menu name="content" :baseStationsArr="baseStationsGroup" @searchBase="searchBase($event)"/>
       <sidebar-link to="/view/dashboard">
         <i class="nc-icon nc-chart-pie-35"></i>
         <p>Dashboard</p>
@@ -44,6 +44,7 @@ import DashboardContent from '@/components/ContentItem.vue'
 import MobileMenu from '@/components/MobileMenu.vue'
 import TopNavbar from '@/components/TopNavbar.vue'
 import axios from 'axios'
+// import BaseDropdown from '@/components/BaseDropdown.vue'
 
 export default {
   name: 'MainApp',
@@ -52,7 +53,8 @@ export default {
     SidebarLink,
     DashboardContent,
     TopNavbar,
-    MobileMenu
+    MobileMenu,
+    // BaseDropdown
   },
   data: () => ({
     baseStationsGroup: [],
@@ -62,7 +64,6 @@ export default {
   methods: {
     toggleSidebar () {
       if (this.$sidebar.showSidebar) {
-        console.log('DashboardLayout -> toggleSidebar')
         this.$sidebar.displaySidebar(false)
       }
     },

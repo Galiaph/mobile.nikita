@@ -5,7 +5,7 @@
         <div class="col-md-6">
           <chart-card :chartOptions="topData">
             <template #header>
-              <h4 class="card-title">Топ обрывов</h4>
+              <h4 class="card-title">Топ порывов</h4>
               <p class="card-category">Здесь могла быть Ваша реклама</p>
             </template>
             <template #footer>
@@ -175,19 +175,16 @@ export default {
           id: index + 1,
           data: 
             this.tableData.filter(i => i.sector == item.sector).map(el => {
-                return [el['first_time'], 1]
+                return [el['first_time'].split(' ')[0], 1]
             })
         }
       })
-
-      console.log(this.topData.drilldown.series)
     },
     al (text) {
       window.alert(text)
     }
   },
-  async mounted () {
-    
+  mounted () {  
     this.getFiberAlarmsTop()
   }
 }

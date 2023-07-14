@@ -12,7 +12,7 @@ import store from './store'
 import './assets/sass/light-bootstrap-dashboard.scss'
 import './assets/css/demo.css'
 import SideBar from '@/components/SidebarPlugin'
-//import clickOutside from './directives/click-ouside.js'
+import clickOutside from './directives/click-ouside.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
@@ -82,7 +82,7 @@ axios.interceptors.response.use(undefined, errorInterceptor)
 const app = createApp(App)
 //app.config.globalProperties.$sidebar = SideBar
 // app.provide('sidebar', SideBar)
-//app.directive('click-outside', clickOutside)
+app.directive('click-outside', clickOutside)
 
 app.use(store)
 app.use(router)

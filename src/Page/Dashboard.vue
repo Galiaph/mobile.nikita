@@ -9,7 +9,7 @@
             </template>
             <template #content>
               <p class="card-category">Стройка завершена</p>
-              <h4 class="card-title">30%</h4>
+              <h4 class="card-title">{{ buildData.mir }}%</h4>
             </template>
             <template #footer>
               <hr/>
@@ -25,7 +25,7 @@
             </template>
             <template #content>
               <p class="card-category">Обрывов магистралей</p>
-              <h4 class="card-title">10</h4>
+              <h4 class="card-title">{{ lastData }}</h4>
             </template>
             <template #footer>
               <hr/>
@@ -90,6 +90,7 @@
 <script>
 import StatsCard from '@/components/Cards/StatsCard.vue'
 import ChartCard from '@/components/Cards/ChartCard.vue'
+import axios from 'axios'
 
 export default {
   // eslint-disable-next-line
@@ -99,10 +100,9 @@ export default {
     ChartCard
   },
   data: () => ({
+    buildData: {},
+    lastData: 0,
     chartOptions: {
-      chart: {
-        type: 'column'
-      },
       title: {
         text: ''
       },
@@ -157,7 +157,21 @@ export default {
         data: [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
       }]
     }
-  })
+  }),
+  methods: {
+    async loadPercent () {
+      const resp = await axios.get(`http://151.0.10.245:5001/percentbuild`)
+      this.buildData = resp.data[0]
+      this.buildData.mir = ((this.buildData.ended/this.buildData.total)*100).toFixed(0)
+    },
+    async loadLastWeek () {
+      const resp = await axios.get(`http://151.0.10.245:5001/lastweek`)
+      this.lastData = resp.data[0]
+    }
+  },
+  async mounted () {
+    this.loadPercent()
+  }
 }
 </script>
 
