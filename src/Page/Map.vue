@@ -24,18 +24,23 @@
         :name="item.bs_name"
         :color="item.station != null ? 10 : item.bs_operator"
       />
+      <date-picker :isShow="showDatepicker" :position="pointDatepicker" :dateEnabled="enableDate" @choiseDate="choiseDate"/>
     </yandex-map>
   </div>
 </template>
 
 <script>
 import baseStations from '@/components/BaseStation.vue'
+import DatePicker from '@/components/Datepicker.vue'
+import moment from 'moment'
+import axios from 'axios'
 
 export default {
   // eslint-disable-next-line
     name: 'Map',
     components: {
-      baseStations
+      baseStations,
+      DatePicker
     },
     props: {
       baseStationsArr: Object,
@@ -44,7 +49,10 @@ export default {
     },
     data: () => ({
       myMap: null,
-      statM: false
+      statM: false,
+      showDatepicker: false,
+      pointDatepicker: { right: '10px', top: '132px'},
+      enableDate: []
     }),
     computed: {
       button() {
@@ -75,6 +83,19 @@ export default {
             events: {
               click: this.buttonP,
             },
+          },
+          'Замеры': {
+            options: {
+              float: 'none',
+              position: {
+                right: '10px',
+                top: '45px'
+              },
+              selectOnClick: false,
+            },
+            events: {
+              click: this.buttonD,
+            },
           }
         }
       }
@@ -83,18 +104,34 @@ export default {
       handler: function (el) {
         this.myMap = el
       },
-      buttonM() {
+      buttonM () {
         this.statM = !this.statM
         this.$emit('clickButtonM', this.statM)
       },
-      buttonK() {
+      buttonK () {
         this.statK = !this.statK
         this.$emit('clickButtonK', this.statK)
       },
-      buttonP() {
+      buttonP () {
         this.statP = !this.statP
         this.$emit('clickButtonP', this.statP)
+      },
+      buttonD () {
+        this.showDatepicker = !this.showDatepicker
+      },
+      choiseDate (event) {
+        this.showDatepicker = false
+        console.log(event)
+      },
+      async getDateQuality () {
+        const resp = await axios.get(`http://151.0.10.245:5001/qualitydate`)
+        this.enableDate = resp.data.map(el => {
+          return moment(el.date_control, "YYYY-MM-DD")
+        })
       }
+    },
+    mounted () {
+      this.getDateQuality()
     }
 }
 </script>
