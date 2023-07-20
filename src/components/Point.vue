@@ -1,7 +1,7 @@
 <script>
 /* eslint-disable */
 import { h } from 'vue';
-import * as utils from '../vue-yandex-maps/utils.js';
+import * as utils from '@/components/vue-yandex-maps/utils.js';
 
 const MARKER_TYPES = [
   'placemark',
@@ -29,7 +29,7 @@ const defaultMarkerEvents = [
 ];
 
 export default {
-  name: 'Test',
+  name: 'Point',
   inject: ['useObjectManager', 'addMarker', 'deleteMarker', 'compareValues', 'makeComponentBalloonTemplate'],
   props: {
     coords: Array,

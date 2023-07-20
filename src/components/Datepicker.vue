@@ -119,7 +119,7 @@ export default {
             week: w,
             isCurentMonth: dObj.month() == month,
             isSelected: this.choise ? (this.choise.year() == dObj.year() && this.choise.month() == dObj.month() && this.choise.date() == dObj.date()) : false,
-            isToday: this.dateEnabled ? this.dateEnabled.find(el => el.year() == dObj.year() && el.month() == dObj.month() && el.date() == dObj.date()) : false
+            isToday: this.dateEnabled ? this.dateEnabled.find(el => el.date.format('YYYYMMDD') == dObj.format('YYYYMMDD')) : false
           }
 
           el.class = {
@@ -157,7 +157,6 @@ export default {
         const item = this.days.find(i => this.choise.month() == i.month && this.choise.date() == i.day)
         
         if (item) {
-          console.log(item)
           item.isSelected = false
           item.class.current = false
         }
@@ -172,6 +171,12 @@ export default {
   },
   mounted () {
     this.setDate()
+  },
+  watch: {
+    dateEnabled (newData) {
+      if (newData)
+        this.setDate()
+    }
   }
 }
 </script>
