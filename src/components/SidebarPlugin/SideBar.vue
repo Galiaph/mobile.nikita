@@ -22,7 +22,6 @@
           <sidebar-link v-for="(link,index) in sidebarLinks"
                         :key="link.name + index"
                         :to="link.path"
-                        @click="closeNavbar"
                         :link="link">
             <i :class="link.icon"></i>
             <p>{{link.name}}</p>

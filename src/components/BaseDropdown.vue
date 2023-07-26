@@ -20,7 +20,7 @@
 </template>
 <script>
   export default {
-    name: 'base-dropdown',
+    name: 'BaseDropdown',
     props: {
       title: String,
       icon: String
