@@ -172,7 +172,11 @@ export default {
     }
   },
   mounted () {
-    this.loadData()
+    try {
+      this.loadData() 
+    } catch (err) {
+      console.log('Error in mouted Building' + err)
+    }
   }
 }
 </script>

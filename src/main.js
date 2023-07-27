@@ -13,16 +13,17 @@ import './assets/sass/light-bootstrap-dashboard.scss'
 import './assets/css/demo.css'
 import SideBar from '@/components/SidebarPlugin'
 import clickOutside from './directives/click-ouside.js'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fas } from '@fortawesome/free-solid-svg-icons'
-import { fab } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
 import VueSimpleAlert from 'vue3-simple-alert'
 
 drilldown(Highcharts)
 
-library.add(fas, far, fab)
+library.add(fas, far)
 
 const settings = {
     apiKey: '28cc09a4-4cc8-4c92-bd21-2ee1e9d192b8',

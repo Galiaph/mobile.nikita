@@ -21,7 +21,7 @@ export default {
     show: Boolean
   },
   methods: {
-    getColor: function (id, st) {
+    getColor (id, st) {
       if (st == 0)
           return 'green'
       else {

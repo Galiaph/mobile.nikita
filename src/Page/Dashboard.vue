@@ -169,8 +169,12 @@ export default {
       this.lastData = resp.data[0]
     }
   },
-  async mounted () {
-    this.loadPercent()
+  mounted () {
+    try {
+      this.loadPercent() 
+    } catch (err) {
+      console.log('Error in mouted Dashboard' + err)
+    }
   }
 }
 </script>

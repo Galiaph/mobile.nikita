@@ -3157,6 +3157,9 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
 }
 
 .form-check .form-check-label {
+    font-size: 12px;
+    font-weight: 400;
+    color: #9a9a9a;
     display: inline-block;
     position: relative;
     cursor: pointer;

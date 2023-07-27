@@ -4,8 +4,8 @@
       <div class="el-picker-panel__body-wrapper">
         <div class="el-picker-panel__body">
           <div class="el-date-picker__header">
-            <select-input @change="changeSelect" :itemList="arrSelect" :startSelect="itemSelect" />
-            <select-input @change="changeDisSelect" :itemList="districts" :startSelect="disSelect" />
+            <slot name="header">
+            </slot>
             <button @click.prevent="prevYear()" type="button" aria-label="Previous Year" class="el-picker-panel__icon-btn el-date-picker__prev-btn el-icon-d-arrow-left"></button>
             <button @click.prevent="prevMonth()" type="button" aria-label="Previous Month" class="el-picker-panel__icon-btn el-date-picker__prev-btn el-icon-arrow-left"></button>
             <span role="button" class="el-date-picker__header-label">{{ currentDate.format('YYYY') }} </span>
@@ -41,15 +41,10 @@
 </template>
 
 <script>
-import axios from 'axios'
 import moment from 'moment'
-import SelectInput from '@/components/Select.vue'
 
 export default {
   name: 'DatePicker',
-  components: {
-    SelectInput
-  },
   props: {
     dateEnabled: Object,
     isShow: Boolean,
@@ -72,38 +67,10 @@ export default {
     return {
       currentDate: moment(),
       days: [],
-      choise: null,
-      itemSelect: 0,
-      districts: [],
-      disSelect: 0,
-      arrSelect: [
-        {
-          name: 'Мир-Телеком',
-          isSelected: true,
-          value: 1
-        },
-        {
-          name: 'К-Телеком',
-          isSelected: false,
-          value: 2
-        },
-        {
-          name: 'Феникс',
-          isSelected: false,
-          value: 3
-        }
-      ]
+      choise: null
     }
   },
   methods: {
-    changeSelect (ev) {
-      this.arrSelect.forEach(el => el.isSelected = el.name == ev.name ? true : false)
-      this.itemSelect = this.arrSelect.findIndex(el => el.name == ev.name)
-    },
-    changeDisSelect (ev) {
-      this.districts.forEach(el => el.isSelected = el.name == ev.name ? true : false)
-      this.disSelect = this.districts.findIndex(el => el.name == ev.name)
-    },
     setDate () {
       const week = this.weeksOnMonth
       this.days = []
@@ -166,22 +133,10 @@ export default {
       this.choise = moment().year(this.currentDate.year()).month(el.month).date(el.day)
 
       this.$emit('choiseDate', this.choise)
-    },
-    async getDistricts () {
-      const resp = await axios.get('http://151.0.10.245:5001/districts')
-      this.districts = resp.data.map(item => {
-          return {
-            isSelected: false,
-            name: item.district_name,
-            value: item.id
-          }
-      })
-      this.districts[this.disSelect].isSelected = true
     }
   },
   mounted () {
     this.setDate()
-    this.getDistricts()
   },
   watch: {
     dateEnabled (newData) {

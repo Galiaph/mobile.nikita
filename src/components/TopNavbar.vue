@@ -57,7 +57,7 @@ export default {
   data () {
     return {
       searchText: '',
-      searchItem: [{bs_name: 'No results found'}],
+      searchItem: [{ bs_name: 'No results found' }],
     }
   },
   methods: {
