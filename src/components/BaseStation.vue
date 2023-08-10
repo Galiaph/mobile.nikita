@@ -1,5 +1,5 @@
 <template>
-  <ymap-marker
+  <ymap-marker v-if="show"
       :marker-id="name + id"
       :cluster-name="color"
       :coords="geoLocation"
