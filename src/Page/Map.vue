@@ -60,11 +60,12 @@
             LTE ({{ statLTE.col }}): {{ statLTE.percent }}%
             <div>
               <ul class="sett">
-                <li class="red">&ge; -116 to &lt; -110 ()</li>
-                <li>&ge; -110 to &lt; -104 ()</li>
-                <li>&ge; -104 to &lt; -94 ()</li>
-                <li>&ge; -94 to &lt; -80 ()</li>
-                <li>&ge; -80 ()</li>
+                <li class="red">&lt; -116 ({{ statLTE.grey_col}}) {{ statLTE.grey_per }}%</li>
+                <li>&ge; -116 to &lt; -110 ({{ statLTE.red_col}}) {{ statLTE.red_per }}%</li>
+                <li>&ge; -110 to &lt; -104 ({{ statLTE.orange_col}}) {{ statLTE.orange_per }}%</li>
+                <li>&ge; -104 to &lt; -94 ({{ statLTE.yellow_col}}) {{ statLTE.yellow_per }}%</li>
+                <li>&ge; -94 to &lt; -80 ({{ statLTE.blue_col}}) {{ statLTE.blue_per }}%</li>
+                <li>&ge; -80 ({{ statLTE.green_col}}) {{ statLTE.green_per }}%</li>
               </ul>
             </div>
           </div>
@@ -79,11 +80,12 @@
             UMTS ({{ statUMTS.col }}): {{ statUMTS.percent }}%
             <div>
               <ul class="sett">
-                <li class="red">&ge; -116 to &lt; -110 ()</li>
-                <li>&ge; -110 to &lt; -104 ()</li>
-                <li>&ge; -104 to &lt; -94 ()</li>
-                <li>&ge; -94 to &lt; -80 ()</li>
-                <li>&ge; -80 ()</li>
+                <li class="red">&lt; -116 ({{ statUMTS.grey_col}}) {{ statUMTS.grey_per }}%</li>
+                <li>&ge; -116 to &lt; -110 ({{ statUMTS.red_col}}) {{ statUMTS.red_per }}%</li>
+                <li>&ge; -110 to &lt; -104 ({{ statUMTS.orange_col}}) {{ statUMTS.orange_per }}%</li>
+                <li>&ge; -104 to &lt; -94 ({{ statUMTS.yellow_col}}) {{ statUMTS.yellow_per }}%</li>
+                <li>&ge; -94 to &lt; -80 ({{ statUMTS.blue_col}}) {{ statUMTS.blue_per }}%</li>
+                <li>&ge; -80 ({{ statUMTS.green_col}}) {{ statUMTS.green_per }}%</li>
               </ul>
             </div>
           </div>
@@ -98,11 +100,12 @@
             GSM ({{ statGSM.col }}): {{ statGSM.percent }}%
             <div>
               <ul class="sett">
-                <li class="red">&ge; -116 to &lt; -110 ()</li>
-                <li>&ge; -110 to &lt; -104 ()</li>
-                <li>&ge; -104 to &lt; -94 ()</li>
-                <li>&ge; -94 to &lt; -80 ()</li>
-                <li>&ge; -80 ()</li>
+                <li class="red">&lt; -116 ({{ statGSM.grey_col}}) {{ statGSM.grey_per }}%</li>
+                <li>&ge; -116 to &lt; -110 ({{ statGSM.red_col}}) {{ statGSM.red_per }}%</li>
+                <li>&ge; -110 to &lt; -104 ({{ statGSM.orange_col}}) {{ statGSM.orange_per }}%</li>
+                <li>&ge; -104 to &lt; -94 ({{ statGSM.yellow_col}}) {{ statGSM.yellow_per }}%</li>
+                <li>&ge; -94 to &lt; -80 ({{ statGSM.blue_col}}) {{ statGSM.blue_per }}%</li>
+                <li>&ge; -80 ({{ statGSM.green_col}}) {{ statGSM.green_per }}%</li>
               </ul>
             </div>
           </div>
@@ -153,16 +156,50 @@ export default {
         statLTE: {
           percent: 0,
           col: 0,
+          grey_per: 0,
+          grey_col: 0,
           red_per: 0,
-          red_col: 0
+          red_col: 0,
+          orange_per: 0,
+          orange_col: 0,
+          yellow_per: 0,
+          yellow_col: 0,
+          blue_per: 0,
+          blue_col: 0,
+          green_per: 0,
+          green_col: 0
         },
         statUMTS: {
           percent: 0,
-          col: 0
+          col: 0,
+          grey_per: 0,
+          grey_col: 0,
+          red_per: 0,
+          red_col: 0,
+          orange_per: 0,
+          orange_col: 0,
+          yellow_per: 0,
+          yellow_col: 0,
+          blue_per: 0,
+          blue_col: 0,
+          green_per: 0,
+          green_col: 0
         },
         statGSM: {
           percent: 0,
-          col: 0
+          col: 0,
+          grey_per: 0,
+          grey_col: 0,
+          red_per: 0,
+          red_col: 0,
+          orange_per: 0,
+          orange_col: 0,
+          yellow_per: 0,
+          yellow_col: 0,
+          blue_per: 0,
+          blue_col: 0,
+          green_per: 0,
+          green_col: 0
         },
         districts: [{
           name: 'Все МО',
@@ -303,33 +340,60 @@ export default {
         if (this.mapQualityArr && this.mapQualityArr.length > 0) {
           const arr = this.mapQualityArr.filter(el => el.net_type == 1)
 
-          // console.log(arr.find(el => (el.dbm < -116)))
           this.statLTE.percent =  ((arr.length/this.mapQualityArr.length)*100).toFixed(0)
           this.statLTE.col = arr.length
-          // this.statLTE.red_col = arr.find(el => el.dbm < -116).length
-          // this.statLTE.red_per = ((this.statLTE.red_col/this.statLTE.col)*100).toFixed(0)
+          this.statLTE.grey_col = arr.filter(el => (el.dbm < -116)).length
+          this.statLTE.grey_per = ((this.statLTE.grey_col/this.statLTE.col)*100).toFixed(0)
+          this.statLTE.red_col = arr.filter(el => (el.dbm >= -116 && el.dbm < -110)).length
+          this.statLTE.red_per = ((this.statLTE.red_col/this.statLTE.col)*100).toFixed(0)
+          this.statLTE.orange_col = arr.filter(el => (el.dbm >= -110 && el.dbm < -104)).length
+          this.statLTE.orange_per = ((this.statLTE.orange_col/this.statLTE.col)*100).toFixed(0)
+          this.statLTE.yellow_col = arr.filter(el => (el.dbm >= -104 && el.dbm < -94)).length
+          this.statLTE.yellow_per = ((this.statLTE.yellow_col/this.statLTE.col)*100).toFixed(0)
+          this.statLTE.blue_col = arr.filter(el => (el.dbm >= -94 && el.dbm < -80)).length
+          this.statLTE.blue_per = ((this.statLTE.blue_col/this.statLTE.col)*100).toFixed(0)
+          this.statLTE.green_col = arr.filter(el => (el.dbm >= -80)).length
+          this.statLTE.green_per = ((this.statLTE.green_col/this.statLTE.col)*100).toFixed(0)
         }
       },
       getUMTS () {
         if (this.mapQualityArr && this.mapQualityArr.length > 0) {
-          const arr = this.mapQualityArr.filter(el => el.net_type == 2)
+          const arr = this.mapQualityArr.filter(el => el.net_type == 0)
 
-          // console.log(arr.find(el => (el.dbm < -116)))
           this.statUMTS.percent =  ((arr.length/this.mapQualityArr.length)*100).toFixed(0)
           this.statUMTS.col = arr.length
-          // this.statLTE.red_col = arr.find(el => el.dbm < -116).length
-          // this.statLTE.red_per = ((this.statLTE.red_col/this.statLTE.col)*100).toFixed(0)
+          this.statUMTS.grey_col = arr.filter(el => (el.dbm < -116)).length
+          this.statUMTS.grey_per = ((this.statUMTS.grey_col/this.statUMTS.col)*100).toFixed(0)
+          this.statUMTS.red_col = arr.filter(el => (el.dbm >= -116 && el.dbm < -110)).length
+          this.statUMTS.red_per = ((this.statUMTS.red_col/this.statUMTS.col)*100).toFixed(0)
+          this.statUMTS.orange_col = arr.filter(el => (el.dbm >= -110 && el.dbm < -104)).length
+          this.statUMTS.orange_per = ((this.statUMTS.orange_col/this.statUMTS.col)*100).toFixed(0)
+          this.statUMTS.yellow_col = arr.filter(el => (el.dbm >= -104 && el.dbm < -94)).length
+          this.statUMTS.yellow_per = ((this.statUMTS.yellow_col/this.statUMTS.col)*100).toFixed(0)
+          this.statUMTS.blue_col = arr.filter(el => (el.dbm >= -94 && el.dbm < -80)).length
+          this.statUMTS.blue_per = ((this.statUMTS.blue_col/this.statUMTS.col)*100).toFixed(0)
+          this.statUMTS.green_col = arr.filter(el => (el.dbm >= -80)).length
+          this.statUMTS.green_per = ((this.statUMTS.green_col/this.statUMTS.col)*100).toFixed(0)
         }
       },
       getGSM () {
         if (this.mapQualityArr && this.mapQualityArr.length > 0) {
-          const arr = this.mapQualityArr.filter(el => el.net_type == 0)
+          const arr = this.mapQualityArr.filter(el => el.net_type == 2)
 
-          // console.log(arr.find(el => (el.dbm < -116)))
-          this.statGSM.percent =  ((arr.length/this.mapQualityArr.length)*100).toFixed(0)
-          this.statGSM.col = arr.length
-          // this.statLTE.red_col = arr.find(el => el.dbm < -116).length
-          // this.statLTE.red_per = ((this.statLTE.red_col/this.statLTE.col)*100).toFixed(0)
+          this.statGSM.percent =  ((arr.length/this.mapQualityArr.length)*100).toFixed(0) || 0
+          this.statGSM.col = arr.length || 0
+          this.statGSM.grey_col = arr.filter(el => (el.dbm < -116)).length || 0
+          this.statGSM.grey_per = ((this.statGSM.grey_col/this.statGSM.col)*100).toFixed(0) || 0
+          this.statGSM.red_col = arr.filter(el => (el.dbm >= -116 && el.dbm < -110)).length || 0
+          this.statGSM.red_per = ((this.statGSM.red_col/this.statGSM.col)*100).toFixed(0) || 0
+          this.statGSM.orange_col = arr.filter(el => (el.dbm >= -110 && el.dbm < -104)).length || 0
+          this.statGSM.orange_per = ((this.statGSM.orange_col/this.statGSM.col)*100).toFixed(0) || 0
+          this.statGSM.yellow_col = arr.filter(el => (el.dbm >= -104 && el.dbm < -94)).length || 0
+          this.statGSM.yellow_per = ((this.statGSM.yellow_col/this.statGSM.col)*100).toFixed(0) || 0
+          this.statGSM.blue_col = arr.filter(el => (el.dbm >= -94 && el.dbm < -80)).length || 0
+          this.statGSM.blue_per = ((this.statGSM.blue_col/this.statGSM.col)*100).toFixed(0) || 0
+          this.statGSM.green_col = arr.filter(el => (el.dbm >= -80)).length || 0
+          this.statGSM.green_per = ((this.statGSM.green_col/this.statGSM.col)*100).toFixed(0) || 0
         }
       },
       getIconColor (dbm) {
@@ -365,6 +429,7 @@ export default {
         this.getLTE()
         this.getUMTS()
         this.getGSM()
+        this.checked2G = this.checked3G = this.checked4G = true
       },
       async getDateQuality () {
         const resp = await axios.get(`http://151.0.10.245:5001/qualitydate`)
