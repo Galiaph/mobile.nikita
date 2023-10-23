@@ -31,7 +31,7 @@
         :id="item.id"
         :markerId="item.id"
         :show="item.show"
-        :comment="item.cell_id + '<br/>' + item.short_cell_id"
+        :comment="'cell_id: ' + item.cell_id + '<br/>short_cell_id: ' + item.short_cell_id"
         marker-type="placemark"
         :coords="[item.lat, item.lon]"
         :icon="{ content: item.dbm }"
