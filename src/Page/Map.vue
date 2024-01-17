@@ -454,11 +454,11 @@ export default {
         const resp = await axios.get(`http://151.0.10.245:5001/qualityspeed/${id}`)
         this.mapQualitySpeedArr = resp.data.map(el => {
           return {
-            show: true,
+            show: false,
             ...el
           }
         })
-        this.checkedSpeed = true
+        this.checkedSpeed = false
       },
       async getQualityDataById (id) {
         const resp = await axios.get(`http://151.0.10.245:5001/qualitydata/${id}`)
