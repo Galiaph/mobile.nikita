@@ -26,6 +26,17 @@
       />
 
       <base-stations
+        v-for="item in mapQualitySpeedArr"
+        :key="item"
+        :id="item.id"
+        :markerId="item.id"
+        :show="item.show"
+        :comment=item.url
+        :coords="[item.lat, item.lon]"
+        :icon="{ content: `${item.net_type==1 ? 'LTE' : '3G'} (${item.down}/${item.up})` }"
+      />
+
+      <base-stations
         v-for="item in mapQualityArr"
         :key="item"
         :id="item.id"
@@ -110,6 +121,16 @@
               </ul>
             </div>
           </div>
+          <div>
+            <div @click="clickSpeed" :class="[ checkedSpeed ? 'bootstrap-switch-on' : 'bootstrap-switch-off' ]" class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate">
+              <div class="bootstrap-switch-container">
+                <span class="bootstrap-switch-handle-on bootstrap-switch-"></span>
+                <span class="bootstrap-switch-label"></span>
+                <span class="bootstrap-switch-handle-off bootstrap-switch-default"></span>
+              </div>
+            </div>
+            Speedtest
+          </div>
         </div>
       </div>
     </div>
@@ -150,9 +171,11 @@ export default {
         checked4G: true,
         checked3G: true,
         checked2G: true,
+        checkedSpeed: true,
         pointDatepicker: { right: '10px', top: '132px'},
         enableDate: [],
         mapQualityArr: [],
+        mapQualitySpeedArr: [],
         itemSelect: 0,
         statLTE: {
           percent: 0,
@@ -298,6 +321,7 @@ export default {
 
         if (el) {
           this.getQualityDataById(el.id)
+          this.getQualitySpeedById(el.id)
           this.showSettings = true
         } else {
           this.mapQualityArr = []
@@ -326,6 +350,13 @@ export default {
         this.mapQualityArr.forEach(el => {
           if (el.net_type == 2)
             el.show = this.checked2G
+        })
+      },
+      clickSpeed () {
+        this.checkedSpeed = !this.checkedSpeed
+
+        this.mapQualitySpeedArr.forEach(el => {
+          el.show = this.checkedSpeed
         })
       },
       openDropDown () {
@@ -418,6 +449,16 @@ export default {
       },
       getDateID (date) {
         return this.enableDate.find(el => el.date.format('YYYYMMDD') == date.format('YYYYMMDD'))
+      },
+      async getQualitySpeedById (id) {
+        const resp = await axios.get(`http://151.0.10.245:5001/qualityspeed/${id}`)
+        this.mapQualitySpeedArr = resp.data.map(el => {
+          return {
+            show: true,
+            ...el
+          }
+        })
+        this.checkedSpeed = true
       },
       async getQualityDataById (id) {
         const resp = await axios.get(`http://151.0.10.245:5001/qualitydata/${id}`)
