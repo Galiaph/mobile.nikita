@@ -5,15 +5,31 @@
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <template #header>
-              <i class="nc-icon nc-settings-90 text-success"></i>
+              <i class="nc-icon nc-favourite-28 text-primary"></i>
             </template>
             <template #content>
-              <p class="card-category">Стройка завершена</p>
-              <h4 class="card-title">{{ buildData.mir }}%</h4>
+              <p class="card-category">Восстановленных сайтов за день</p>
+              <h4 class="card-title">{{ restoredSite  }}</h4>
             </template>
             <template #footer>
               <hr/>
-              <font-awesome-icon icon="fa fa-refresh"/>Обновлено вчера
+              <font-awesome-icon icon="fa fa-refresh"/>{{ nowTime }}
+            </template>
+          </stats-card>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+          <stats-card>
+            <template #header>
+              <i class="nc-icon nc-fav-remove text-danger"></i>
+            </template>
+            <template #content>
+              <p class="card-category">Упавших сайтов за день</p>
+              <h4 class="card-title">{{ brokenSite  }}</h4>
+            </template>
+            <template #footer>
+              <hr/>
+              <font-awesome-icon icon="fa fa-refresh"/>{{ nowTime }}
             </template>
           </stats-card>
         </div>
@@ -37,34 +53,19 @@
         <div class="col-xl-3 col-md-6">
           <stats-card>
             <template #header>
-              <i class="nc-icon nc-favourite-28 text-primary"></i>
+              <i class="nc-icon nc-settings-90 text-success"></i>
             </template>
             <template #content>
-              <p class="card-category">Поднятых базовых станций</p>
-              <h4 class="card-title">+4</h4>
+              <p class="card-category">Стройка завершена</p>
+              <h4 class="card-title">{{ buildData.mir }}%</h4>
             </template>
             <template #footer>
               <hr/>
-              <font-awesome-icon icon="fa-regular fa-clock"/>За сегодня
+              <font-awesome-icon icon="fa fa-refresh"/>
             </template>
           </stats-card>
         </div>
 
-        <div class="col-xl-3 col-md-6">
-          <stats-card>
-            <template #header>
-              <i class="nc-icon nc-fav-remove text-danger"></i>
-            </template>
-            <template #content>
-              <p class="card-category">Не работающих базовых станций</p>
-              <h4 class="card-title">83</h4>
-            </template>
-            <template #footer>
-              <hr/>
-              <font-awesome-icon icon="fa fa-refresh"/>Обновлено вчера
-            </template>
-          </stats-card>
-        </div>
       </div>
 
       <div class="row">
@@ -91,6 +92,7 @@
 import StatsCard from '@/components/Cards/StatsCard.vue'
 import ChartCard from '@/components/Cards/ChartCard.vue'
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   // eslint-disable-next-line
@@ -102,6 +104,8 @@ export default {
   data: () => ({
     buildData: {},
     lastData: 0,
+    restoredSite: 0,
+    brokenSite: 0,
     chartOptions: {
       title: {
         text: ''
@@ -164,14 +168,35 @@ export default {
       this.buildData = resp.data[0]
       this.buildData.mir = ((this.buildData.ended/this.buildData.total)*100).toFixed(0)
     },
-    async loadLastWeek () {
-      const resp = await axios.get(`http://151.0.10.245:5001/lastweek`)
-      this.lastData = resp.data[0]
+    async loadBrokenSite () {
+      const resp = await axios.get(`http://151.0.10.245:5001/brokensite`)
+      this.brokenSite = resp.data[0].count
+    },
+    async loadRestoredSite () {
+      const resp = await axios.get(`http://151.0.10.245:5001/restoredsite`)
+      this.restoredSite = resp.data[0].count
+    }
+    // async loadLastWeek () {
+    //   const resp = await axios.get(`http://151.0.10.245:5001/lastweek`)
+    //   this.lastData = resp.data[0]
+    // }
+  },
+  computed: {
+    nowTime () {
+      const h = moment().hours()
+      // const m = moment().minutes()
+
+      if (h>=8 && h<16)
+        return 'на 8:15'
+
+      return 'на 16:15'
     }
   },
   mounted () {
     try {
       this.loadPercent() 
+      this.loadBrokenSite()
+      this.loadRestoredSite()
     } catch (err) {
       console.log('Error in mouted Dashboard' + err)
     }

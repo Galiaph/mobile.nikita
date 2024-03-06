@@ -153,8 +153,12 @@ export default {
     async getFiberAlarms () {
       const resp = await axios.get(`http://151.0.10.245:5001/fiberalarms`)
       this.tableData = resp.data.map(item => {
-        item.first_time = moment(item.first_time).format('YYYY-MM-DD HH:mm')
-        item.last_time = moment(item.last_time).format('YYYY-MM-DD HH:mm')
+        const mom = moment(item.first_time)
+        const mom2 = moment(item.last_time)
+        mom.utc()
+        mom2.utc()
+        item.first_time = mom.format('YYYY-MM-DD HH:mm')
+        item.last_time = mom2.format('YYYY-MM-DD HH:mm')
         return item
       })
     },
