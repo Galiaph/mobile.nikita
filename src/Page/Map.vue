@@ -19,7 +19,7 @@
         :id="item.id"
         :show="item.show"
         :comment="item.bs_comment"
-        :status="item.station != null ? 1 : item.bs_status"
+        :status="item.bs_status"
         :geoLocation="[item.bs_latitude, item.bs_longitude]"
         :name="item.bs_name"
         :color="item.station != null ? 10 : item.bs_operator"

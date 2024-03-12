@@ -21,18 +21,21 @@ export default {
     show: Boolean
   },
   methods: {
-    getColor (id, st) {
-      if (st == 0)
-          return 'green'
+    getColor (cl, st) {
+      if (cl == 10)
+          return 'gray'
       else {
-        switch (id) {
-          case 10:
-            return 'gray'
+        switch (st) {
+          case 0:
+            return 'green'
+          case 1:
+            return 'red'
+          case 2:
+            return 'yellow'
+          case 3:
+            return 'violet'
           default:
-            if (st == 2)
-              return 'yellow'
-            else
-              return 'red'
+            return 'pink'
         }
       }
     }
