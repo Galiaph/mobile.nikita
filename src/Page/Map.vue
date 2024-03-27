@@ -22,7 +22,7 @@
         :status="item.bs_status"
         :geoLocation="[item.bs_latitude, item.bs_longitude]"
         :name="item.bs_name"
-        :color="item.station != null ? 10 : item.bs_operator"
+        :color="item.station ? 10 : item.bs_operator"
       />
 
       <base-stations
