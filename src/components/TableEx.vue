@@ -1,6 +1,6 @@
 <template>
-  <div class="card" :class="[type && `card-${type}`]">
-    <div class="card-content row">
+  <div class="card-content">
+    <div class="row">
       <div class="col-sm-6" v-if="$slots.counter">
         <slot name="counter">
         </slot>

@@ -4193,6 +4193,22 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
     margin-bottom: 30px
 }
 
+.card .table {
+    margin-bottom: 0px
+}
+
+.card,.card .actions,.card .card-content,.card .card-footer,.card .card-title,.card .category,.card .description,.card .social-line,.card .stats,.card a,.card small {
+    position: relative;
+}
+
+.card .card-link {
+    color: #444
+}
+
+.card .card-link:focus,.card .card-link:hover {
+    color: #333
+}
+
 .card .card-image {
     width: 100%;
     overflow: hidden;
@@ -4251,12 +4267,12 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
     background-color: #fff;
     border-bottom: none!important
 }
-
-.card .card-category,.card label {
+ 
+.card-category {
     font-size: 14px;
     font-weight: 400;
     color: #9a9a9a;
-    margin-bottom: 0
+    margin: 0px 20px;
 }
 
 .card .card-category i,.card label i {
@@ -4273,6 +4289,10 @@ a:active,a:focus,button::-moz-focus-inner,input::-moz-focus-inner,input[type=but
     margin: 0;
     color: #333;
     font-weight: 300
+}
+
+.card .card-content {
+    padding: 15px 15px 0px;
 }
 
 .card .avatar {
@@ -9336,7 +9356,7 @@ a.fc-more:hover {
     background: 0 0;
     cursor: pointer;
     outline: 0;
-    margin-top: 8px
+    /* margin-top: 8px */
 }
 
 .el-picker-panel__icon-btn:hover {
